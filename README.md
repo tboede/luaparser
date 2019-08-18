@@ -2,7 +2,7 @@
 
 # Description
 
-luaparser is go library to parse go data types into or from lua data types.
+luaparser is a go library for parsing go data types into or from lua data types.
 
 # Marshalling
 
