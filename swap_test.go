@@ -1,4 +1,4 @@
-package main
+package luaparser
 
 import(
     "testing"
