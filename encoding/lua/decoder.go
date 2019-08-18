@@ -106,8 +106,12 @@ func (self *Decoder) DecodeTable(v interface{}) error {
             if key == "" {
                 store[strconv.FormatInt(int64(self.index),10)]=value
                 self.index++
-            } else if key[0] == '['{
-                store[key[1:len(key)-1]]=value
+            } else if key[0] == '[' {
+                if (key[1] == '"') {
+                    store[key[2:len(key)-2]]=value
+                } else {
+                    store[key[1:len(key)-1]]=value
+                }
             } else {
                 store[key]=value
             }

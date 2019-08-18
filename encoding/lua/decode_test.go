@@ -123,7 +123,7 @@ func TestDecodeList(t *testing.T) {
 func TestDecodeMap(t *testing.T) {
 
     m := make(map[string]interface{})
-    s := `{a=1,b=2,c=3,d=4,aa=true,bb=false,cc="aa",dd="bb"}`
+    s := `{a=1,b=2,c=3,d=4,aa=true,bb=false,["dd-dd-dd"]="aa",cc="aa",dd="bb"}`
 
     err := Unmarshal([]byte(s),m)
 
@@ -139,13 +139,14 @@ func TestDecodeMap(t *testing.T) {
     compareMap(m,"bb",false,t)
     compareMap(m,"cc","aa",t)
     compareMap(m,"dd","bb",t)
+    compareMap(m,"dd-dd-dd","aa",t)
 
 }
 
 func TestDecodeMixed(t *testing.T) {
 
     m := make(map[string]interface{})
-    s := `{1,true,"cc",b=2,[6]=3,[5]=4,bb=false,dd="aa"}`
+    s := `{1,true,"cc",b=2,[6]=3,[5]=4,bb=false,["ll-aa"]=22,dd="aa"}`
 
     err := Unmarshal([]byte(s),m)
 
@@ -161,6 +162,7 @@ func TestDecodeMixed(t *testing.T) {
     compareMap(m,"6",int64(3),t)
     compareMap(m,"bb",false,t)
     compareMap(m,"dd","aa",t)
+    compareMap(m,"ll-aa",int64(22),t)
 
 }
 
