@@ -5,7 +5,6 @@ import (
     "strconv"
     "errors"
     "reflect"
-log "github.com/sirupsen/logrus"
 )
 
 type Decoder struct {
@@ -63,12 +62,9 @@ func (self *Decoder) Decode(v interface{}) error {
 
 func (self *Decoder) DecodeTable(v interface{}) error {
 
-    log.Debug("Parsing Table")
     var c byte = 0
 
     for c != '}' {
-
-        log.Debug("Looking for entry")
 
         key,valuestr,err := self.FindEntry()
 
