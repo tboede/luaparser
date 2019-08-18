@@ -1,0 +1,16 @@
+
+
+*
+
+!.gitignore
+!.gitattributes
+
+!/README
+!/README.md
+
+!/LICENSE
+!/*-LICENSE
+
+!/*.go
+
+!/encoding
