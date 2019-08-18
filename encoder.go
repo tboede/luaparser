@@ -3,8 +3,8 @@ package luaparser
 import(
     "fmt"
     "strconv"
-    "strings"
     "errors"
+    "regexp"
 )
 
 type Encoder struct {
@@ -48,6 +48,12 @@ func (self *Encoder) EncodeMap(m map[string]interface{}) (string,error) {
 
     s:="{"
 
+    allowed,err := regexp.Compile("^[A-Z|a-z|0-9|_]*$")
+
+    if err != nil {
+        return "",errors.New("Invalid check regex")
+    }
+
     for k,v := range m {
 
         _,err := strconv.ParseInt(k,10,32)
@@ -56,8 +62,8 @@ func (self *Encoder) EncodeMap(m map[string]interface{}) (string,error) {
 
         if err == nil {
             key=fmt.Sprintf("[%s]",k)
-        } else if strings.IndexByte(k,' ') != -1 {
-            key=fmt.Sprintf("[%s]",k)
+        } else if ! allowed.Match([]byte(k)) {
+            key=fmt.Sprintf("[\"%s\"]",k)
         } else {
             key=k
         }

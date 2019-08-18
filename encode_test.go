@@ -82,6 +82,39 @@ func TestEncodeMixed(t *testing.T) {
     }
 }
 
+func TestEncodeInvalidKey(t *testing.T) {
+
+    m := make(map[string]interface{})
+    test:=`{["zz-fg#"]="aa"}`
+
+    m["zz-fg#"]="aa"
+
+    s,err := Marshal(m)
+
+    if err != nil {
+        t.Fatal(err)
+    }
+
+    if s != test {
+        t.Errorf("%s != %s",s,test)
+    }
+
+    m = make(map[string]interface{})
+    test =`{["jj+zu+u"]=true}`
+
+    m["jj+zu+u"]=true
+
+    s,err = Marshal(m)
+
+    if err != nil {
+        t.Fatal(err)
+    }
+
+    if s != test {
+        t.Errorf("%s != %s",s,test)
+    }
+}
+
 func TestEncodeBool(t *testing.T) {
 
     m := true
